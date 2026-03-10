@@ -1,0 +1,28 @@
+body {
+    background: url('../imgs/books.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-box {
+    background-color: rgba(0, 0, 0, 0.6); 
+    color: #ffc107;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px); 
+}
+
+h1 {
+    font-family: 'Pacifico', cursive;
+    color: #ffc107; 
+}
+
+.form-control:focus {
+    box-shadow: 0 0 10px #ffc107;
+    border-color: #ffc107;
+}
+
+.table { 
+    border-radius: 10px;
+    overflow: hidden; 
+}

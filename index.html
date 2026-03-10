@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarker Task</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="imgs/logo.png">
+</head>
+<body>
+
+    <div class="container py-5">
+        <div class="main-box p-4 text-center">
+            <h1 class="py-3 border-bottom border-warning border-3 d-inline-block">Bookmarker</h1>
+            <h2 class="my-4">
+                <i class="fa-solid fa-bookmark"></i> Bookmark your favorite sites <i class="fa-solid fa-bookmark"></i>
+            </h2>
+
+            <div class="form-group text-start mb-3">
+                <label class="fw-bold mb-2" for="name"><i class="fa-solid fa-book-open"></i> Site Name</label>
+                <input oninput="validatName()" type="text" id="siteName" class="form-control" placeholder="Bookmark Name">
+                <div id="NMO" class="valid-feedback" role="alert">Thank you valid answer</div>
+                <div id="NMS" class="invalid-feedback" role="alert">Start with Capital letter (3-9 chars)</div>
+            </div>
+
+            <div class="form-group text-start mb-4">
+                <label class="fw-bold mb-2"><i class="fa-solid fa-link"></i> Site URL</label>
+                <input oninput="validate()" type="text" id="siteUrl" class="form-control" placeholder="Website URL">
+                <div id="NMO" class="valid-feedback" role="alert">Thank you valid answer</div>
+                <div id="NMS" class="invalid-feedback" role="alert">Please enter a valid URL (https://...)</div>
+            </div>
+
+            <button onclick="addSite()" id="Add" class="btn btn-warning px-5 py-2 fw-bold">Submit</button>
+            <button onclick="updateSite()" id="update" class="btn btn-info px-5 py-2 fw-bold d-none">Update</button>
+        </div>
+
+        <table class="table mt-5 text-center table-dark table-striped shadow">
+            <thead>
+                <tr>
+                    <th>Index</th>
+                    <th>Website Name</th>
+                    <th>Visit</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="tBody">
+                </tbody>
+        </table>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
