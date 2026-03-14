@@ -27,7 +27,7 @@ function displayData() {
         <tr>
             <td>${i + 1}</td>
             <td>${data[i].name}</td>
-            <td><a class="btn btn-success btn-sm"><i class="fa-solid fa-eye"></i> Visit</a></td>
+             <td><a href="${data[i].url}" target="_blank" class="btn btn-success btn-sm"><i class="fa-solid fa-eye"></i> Visit</a></td>
             <td><button onclick="UpdateData(${i})" class="btn btn-info btn-sm text-white"><i class="fa-solid fa-pen"></i> Update</button></td>
             <td><button onclick="deleteSite(${i})" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Delete</button></td>
         </tr>`;
