@@ -1,18 +1,33 @@
+
+
 var siteNameInput = document.getElementById("siteName");
 var siteUrlInput = document.getElementById("siteUrl");
 var AddBtn = document.getElementById("Add"); 
 var updateBtn = document.getElementById("update");
 var tBody = document.getElementById("tBody");
-var data = [];
 
+// مصفوفة البيانات الأساسية
+var data = [];
+var currentIndex; // متغير لحفظ مكان العنصر المراد تعديله
+
+// 1. التأكد من وجود بيانات قديمة في المتصفح عند فتح الصفحة
+if (localStorage.getItem("allSites") != null) {
+    data = JSON.parse(localStorage.getItem("allSites")); // تم توحيد الاسم لـ data
+    displayData();
+}
+
+// 2. دالة الإضافة
 function addSite() {
     if (validatName() && validate()) {
         var site = {
             name: siteNameInput.value,
             url: siteUrlInput.value
-        };
+        }; 
         data.push(site);
-        console.log(data);
+        
+        // حفظ المصفوفة في الـ LocalStorage بعد الإضافة
+        localStorage.setItem("allSites", JSON.stringify(data));
+        
         displayData();
         clearForm();
     } else {
@@ -20,6 +35,7 @@ function addSite() {
     }
 }
 
+// 3. دالة العرض
 function displayData() {
     var shanta = ``;
     for (var i = 0; i < data.length; i++) {
@@ -27,21 +43,25 @@ function displayData() {
         <tr>
             <td>${i + 1}</td>
             <td>${data[i].name}</td>
-             <td><a href="${data[i].url}" target="_blank" class="btn btn-success btn-sm"><i class="fa-solid fa-eye"></i> Visit</a></td>
+            <td><a href="${data[i].url}" target="_blank" class="btn btn-success btn-sm"><i class="fa-solid fa-eye"></i> Visit</a></td>
             <td><button onclick="UpdateData(${i})" class="btn btn-info btn-sm text-white"><i class="fa-solid fa-pen"></i> Update</button></td>
             <td><button onclick="deleteSite(${i})" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Delete</button></td>
         </tr>`;
     }
-    document.getElementById("tBody").innerHTML=shanta;
+    tBody.innerHTML = shanta;
 }
 
+// 4. دالة المسح
 function deleteSite(index) {
     data.splice(index, 1);
-    console.log(data)
+    
+    // تحديث الـ LocalStorage بعد المسح
+    localStorage.setItem("allSites", JSON.stringify(data));
+    
     displayData();
 }
 
-
+// 5. دالة جلب البيانات للفورم للتعديل
 function UpdateData(index) {
     currentIndex = index; 
     var current = data[index];
@@ -53,22 +73,30 @@ function UpdateData(index) {
     updateBtn.classList.remove("d-none");
 }
 
-
+// 6. دالة حفظ التعديل النهائي
 function updateSite() {
-    var updatedSite = {
-        name: siteNameInput.value,
-        url: siteUrlInput.value
-    };
+    if (validatName() && validate()) {
+        var updatedSite = {
+            name: siteNameInput.value,
+            url: siteUrlInput.value
+        };
 
-    data.splice(currentIndex, 1, updatedSite); 
-    console.log(data);
-    displayData();
-    clearForm();
+        data.splice(currentIndex, 1, updatedSite); 
+        
+        // تحديث الـ LocalStorage بعد التعديل
+        localStorage.setItem("allSites", JSON.stringify(data));
+        
+        displayData();
+        clearForm();
 
-    AddBtn.classList.remove("d-none");
-    updateBtn.classList.add("d-none");
+        AddBtn.classList.remove("d-none");
+        updateBtn.classList.add("d-none");
+    } else {
+        alert("يرجى التأكد من البيانات قبل التعديل");
+    }
 }
 
+// 7. دالة تنظيف الفورم
 function clearForm() {
     siteNameInput.value = "";
     siteUrlInput.value = "";
@@ -76,8 +104,7 @@ function clearForm() {
     siteUrlInput.classList.remove("is-valid", "is-invalid");
 }
 
-
-
+// 8. التحقق من الاسم
 function validatName() {
     var rejex = /^[A-Z][a-z]{2,8}$/;
     if (rejex.test(siteNameInput.value)) {
@@ -91,6 +118,7 @@ function validatName() {
     }
 }
 
+// 9. التحقق من الرابط
 function validate() {
     var rejex = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+)\.[a-z]{2,6}\/?$/;
     if (rejex.test(siteUrlInput.value)) {
